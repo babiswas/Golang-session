@@ -1,0 +1,119 @@
+package main
+
+import "fmt"
+
+func main() {
+	var arr [5]int
+	fmt.Println("Constructing an array:")
+	for i := 0; i < 5; i++ {
+		arr[i] = i + 10
+	}
+	fmt.Println("Displaying an array:")
+	for i := 0; i < 5; i++ {
+		fmt.Println(arr[i])
+	}
+}
+
+
+package main
+
+import "fmt"
+
+func main() {
+	var arr [5]int
+	fmt.Println("Constructing an array:")
+	for i := 0; i < 5; i++ {
+		arr[i] = i + 10
+	}
+	fmt.Println("Displaying an array:")
+	for index, value := range arr {
+		fmt.Println(index, value)
+	}
+}
+
+
+package main
+import "fmt"
+
+func main(){
+   arr:=[5]int{12,13,14,15,16}
+   brr:=arr[0:3]
+   for index,value:= range brr{
+      fmt.Println(index,value)
+   }
+}
+
+
+package main
+
+import "fmt"
+
+func process_arr(arr [5]int) {
+	arr[0] = 200
+	fmt.Println(arr)
+}
+func main() {
+	arr := [5]int{1, 2, 3, 4, 5}
+	brr := arr
+	arr[0] = 100
+	fmt.Println(arr)
+	fmt.Println(brr)
+	process_arr(arr)
+	fmt.Println(arr)
+	fmt.Println(brr)
+}
+
+
+
+package main
+
+import "fmt"
+
+func process_arr(arr [5]int) {
+	arr[0] = 200
+	fmt.Println(arr)
+}
+
+func process_arr_ref(arr *[5]int) {
+	arr[0] = 1000
+}
+
+func main() {
+	arr := [5]int{1, 2, 3, 4, 5}
+	brr := arr
+	arr[0] = 100
+	fmt.Println(arr)
+	fmt.Println(brr)
+	process_arr(arr)
+	fmt.Println(arr)
+	fmt.Println(brr)
+	process_arr_ref(&arr)
+	fmt.Println(arr)
+}
+
+
+package main
+import "fmt"
+import "reflect"
+
+func process_arr(arr interface{},brr interface{}){
+	test:=reflect.ValueOf(brr)
+	if test.Kind()!=reflect.Array{
+       panic("the item is not an array.")
+	}
+	for i:=0;i<test.Len();i++{
+	    if test.Index(i).Interface()==arr{
+	        return true
+	    }
+	}
+	return false
+}
+
+func main(){
+	arr:=[5]int{1,2,3,4,5}
+	if item_exists(2,arr){
+	    fmt.Println(2," exists in an array.")
+	}else{
+	    fmt.Println(2," doesn't exists in the array.")
+	}
+}
