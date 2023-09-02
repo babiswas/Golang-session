@@ -117,3 +117,24 @@ func main(){
 	    fmt.Println(2," doesn't exists in the array.")
 	}
 }
+
+package main
+
+import "fmt"
+
+func main() {
+	arr := []int{10, 11, 12, 13, 14}
+	for i := 0; i < len(arr); i++ {
+		fmt.Println(arr[i])
+	}
+	fmt.Println("=======================")
+	arr = RemoveIndex(arr, 3)
+	for i := 0; i < len(arr); i++ {
+		fmt.Println(arr[i])
+	}
+	fmt.Println("=========================")
+}
+
+func RemoveIndex(arr []int, index int) []int {
+	return append(arr[:index], arr[index+1:]...)
+}
