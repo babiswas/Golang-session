@@ -13,3 +13,37 @@ func main() {
 	fmt.Println(reflect.ValueOf(s2).Kind())
 
 }
+
+===========================================================================================================================================
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+func main() {
+	arr := make([]int, 10, 20)
+	for i := 0; i < len(arr); i++ {
+		arr[i] = 20 + i
+	}
+	test := itemExists(arr, 23)
+	if test {
+		fmt.Println("23 exists in the array")
+	} else {
+		fmt.Println("23 doesn't exists in the array")
+	}
+}
+
+func itemExists(i1 interface{}, i2 interface{}) bool {
+	test := reflect.ValueOf(i1)
+	if test.Kind() != reflect.Slice {
+		panic("Error")
+	}
+	for i := 0; i < test.Len(); i++ {
+		if test.Index(i).Interface() == i2 {
+			return true
+		}
+	}
+	return false
+}
