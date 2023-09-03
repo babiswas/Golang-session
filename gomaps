@@ -1,1 +1,20 @@
+package main
 
+import "fmt"
+
+func main() {
+	mp := make(map[string]int)
+	mp["hello"] = 10
+	mp["bello"] = 11
+	mp["nello"] = 12
+	mp["tello"] = 13
+	for key, value := range mp {
+		fmt.Println(key, value)
+	}
+	fmt.Println("==================")
+	delete(mp, "hello")
+	fmt.Println("====================")
+	for key, value := range mp {
+		fmt.Println(key, value)
+	}
+}
