@@ -18,3 +18,29 @@ func main() {
 		fmt.Println(key, value)
 	}
 }
+
+=======================================================================================================
+
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	mp := map[string]int{"hello": 14, "bello": 11, "tello": 13}
+	value := make([]int, 0, len(mp))
+	for _, val := range mp {
+		value = append(value, val)
+	}
+	fmt.Println("========================")
+	fmt.Println("Before sorting:")
+	fmt.Println(value)
+	fmt.Println("=======================")
+	fmt.Println("After sorting:")
+	sort.Ints(value)
+	fmt.Println(value)
+	fmt.Println("==========================")
+}
+
