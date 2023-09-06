@@ -1,0 +1,47 @@
+package main
+import "fmt"
+import "sync"
+
+func main(){
+    odd:=make(chan int,4)
+    even:=make(chan int,4)
+    source:=make(chan int,100)
+    var wg sync.WaitGroup
+
+    wg.Add(1)
+    go func(ch chan int,och chan<- int,ech chan<- int,wg *sync.WaitGroup){
+       defer wg.Done()
+       for i:=range ch{
+          if i%2==0{
+             ech<-i
+          }else{
+             och<-i
+          }
+       }
+       close(ech)
+       close(och)
+    }(source,odd,even,&wg)
+
+    wg.Add(1)
+    go func(och <-chan int,wg *sync.WaitGroup){
+       defer wg.Done()
+       for val:= range och{
+          fmt.Println(val,"By odd channel")
+       }
+    }(odd,&wg)
+
+    wg.Add(1)
+    go func(ech <-chan int,wg *sync.WaitGroup){
+       defer wg.Done()
+       for val:= range ech{
+          fmt.Println(val,"By even channel")
+       }
+    }(even,&wg)
+
+    for i:=0;i<10000;i++{
+       source <- i
+    }
+
+    close(source)
+    wg.Wait()
+}
